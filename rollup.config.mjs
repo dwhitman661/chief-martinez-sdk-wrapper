@@ -7,7 +7,8 @@ export default {
     file: 'chiefMartinezSdkWrapper.bundle.js',
     format: 'umd',
     name: 'ChiefMartinezSDK',
-    exports: 'named'
+    exports: 'named',
+    inlineDynamicImports: true
   },
   plugins: [
     resolve({
