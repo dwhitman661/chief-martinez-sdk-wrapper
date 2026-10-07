@@ -1,0 +1,17 @@
+{
+  "name": "chief-martinez-sdk-wrapper",
+  "version": "1.0.0",
+  "description": "Browser wrapper for D-ID Client SDK v3.0.3 DirectPlayback (Talks/V2) used by FireLine Prep",
+  "main": "chiefMartinezSdkWrapper.bundle.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "@d-id/client-sdk": "3.0.3"
+  },
+  "devDependencies": {
+    "rollup": "^4.21.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-commonjs": "^25.0.8"
+  }
+}
