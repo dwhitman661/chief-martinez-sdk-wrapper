@@ -2027,7 +2027,12 @@
     };
   }
 
-  async function createDirectPlaybackAgent(agentId, clientKey, videoElement) {
+  async function createDirectPlaybackAgent(
+    agentId,
+    clientKey,
+    videoElement,
+    options = {}
+  ) {
     if (!agentId || !clientKey) {
       throw new Error('D-ID DirectPlayback wrapper: agentId and clientKey are required.');
     }
@@ -2036,24 +2041,39 @@
       throw new Error('D-ID DirectPlayback wrapper: videoElement must be an HTMLVideoElement.');
     }
 
+    const streamOptions = options.streamOptions || {};
+
     const agentManager = await Kn$1(agentId, {
       auth: {
         type: 'key',
         clientKey: clientKey
       },
+
       mode: L$1.DirectPlayback,
+
+      streamOptions,
+
       callbacks: {
         onSrcObjectReady(value) {
+          console.log('[FireLine Prep] D-ID onSrcObjectReady fired');
+
           videoElement.srcObject = value;
 
+          console.log('[FireLine Prep] Chief video stream attached');
+
           videoElement.play().catch(() => {
-            console.warn('D-ID DirectPlayback wrapper: video playback was blocked by the browser.');
+            console.warn(
+              'D-ID DirectPlayback wrapper: video playback was blocked by the browser.'
+            );
           });
-        }
+        },
+
+        ...(options.callbacks || {})
       }
     });
 
     await agentManager.connect();
+
     return agentManager;
   }
 
